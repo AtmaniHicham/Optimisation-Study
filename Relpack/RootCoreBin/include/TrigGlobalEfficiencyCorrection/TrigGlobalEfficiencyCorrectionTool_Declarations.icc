@@ -1,0 +1,225 @@
+// Note: this file is intended to be included only in TrigGlobalEfficiencyCorrectionTool.cxx!
+// contact: jmaurer@cern.ch
+
+#ifndef TOOLPROTOTYPES_TRIGGLOBALEFFICIENCYCORRECTION_DECLARATIONS_ICC
+#define TOOLPROTOTYPES_TRIGGLOBALEFFICIENCYCORRECTION_DECLARATIONS_ICC 1
+
+void TrigGlobalEfficiencyCorrectionTool::declareHierarchies()
+{
+	auto always = [&](const std::string& hierarchy) { m_declaredHierarchies.emplace_back(hierarchy,0.f,1e12f); };
+	auto limited_range = [&](const std::string& hierarchy, float minPt, float maxPt) { m_declaredHierarchies.emplace_back(hierarchy,minPt,maxPt); };
+	
+	/// Add new declarations below:
+	
+	// muon trigger legs
+	std::string lowpt_mu = "mu24>mu22>mu20>mu18>mu14>mu10>mu6>mu4>mu8noL1";
+	always ( "mu50>mu40>"+lowpt_mu );
+	// only single-muon triggers have been using isolation so far, 
+	// so we assume there's no need of being able to compare two legs with isolation since in principle
+	// only the lowest-unprescaled chain is used
+	std::vector<std::string> names_mu2X = {"mu20_iloose_L1MU15", "mu26_imedium", "mu26_ivarmedium", "mu24_iloose_L1MU15", 
+		"mu24_iloose_L1MU15_OR_mu24_iloose", "mu24_imedium", "mu24_ivarmedium"};
+	for(auto& name : names_mu2X)
+		always ( name+">"+name+"_OR_mu50>mu50>"+name+"_OR_mu40>mu40>"+lowpt_mu );
+
+	// 2015 electron trigger legs (no '_nod0' suffix)
+	always ( "e24_lhmedium_L1EM20VHI>e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose"
+		">e17_lhloose>e12_lhloose_L1EM10VH>e12_lhloose>e9_lhloose");
+	always ("e24_lhmedium_L1EM20VHI>e7_lhmedium>e17_lhloose>e12_lhloose_L1EM10VH>e12_lhloose>e9_lhloose");
+	limited_range ( "e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose>e7_lhmedium", 0.f, 121000.f );
+	limited_range ( "e7_lhmedium>e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose", 121000.f, 1e12f );	
+	
+	// 2016 electron trigger legs (always '_nod0' suffix)
+	always ( "e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0"
+		">e24_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0"
+		">e17_lhloose_nod0_L1EM15VH>e17_lhloose_nod0>e12_lhloose_nod0>e10_lhloose_nod0_L1EM8VH>e9_lhloose_nod0>e17_lhvloose_nod0>e15_lhvloose_nod0_L1EM13VH" );
+	always ( "e26_lhmedium_nod0_L1EM22VHI>e24_lhmedium_nod0_L1EM20VHI>e7_lhmedium_nod0>e17_lhloose_nod0_L1EM15VH"
+		">e17_lhloose_nod0>e12_lhloose_nod0>e10_lhloose_nod0_L1EM8VH>e9_lhloose_nod0>e17_lhvloose_nod0>e15_lhvloose_nod0_L1EM13VH" );
+	limited_range ( "e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0"
+		">e24_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0>e7_lhmedium_nod0", 0.f, 141000.f );
+	limited_range( "e7_lhmedium_nod0>e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0"
+		">e24_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0", 141000.f, 1e12f );
+	limited_range ( "e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0"
+		">e24_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0"
+		">e26_lhmedium_nod0_L1EM22VHI>e24_lhmedium_nod0_L1EM20VHI", 0.f, 61000.f );
+	limited_range ( "e26_lhmedium_nod0_L1EM22VHI>e24_lhmedium_nod0_L1EM20VHI>e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0"
+		">e24_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0", 61000.f, 1e12f );
+}
+
+
+void TrigGlobalEfficiencyCorrectionTool::declareTriggers()
+{
+	auto hash = [&](const char* str) -> size_t { size_t h = m_hasher(str); m_dictionary.emplace(h,str); return h; };
+	auto trigger1L = [&](const char* name, const char* leg1) { m_declaredTriggers.emplace(hash(name),std::make_tuple(-1,hash(leg1),0,0)); };
+	auto trigger2L = [&](const char* name, const char* leg1, const char* leg2)
+		{ m_declaredTriggers.emplace(hash(name),std::make_tuple(-1,hash(leg1),hash(leg2),0)); };
+	auto trigger3L = [&](const char* name, const char* leg1, const char* leg2, const char* leg3) 
+		{ m_declaredTriggers.emplace(hash(name),std::make_tuple(-1,hash(leg1),hash(leg2),hash(leg3))); };
+	
+	/// Add new declarations below:
+	
+	// Single muon triggers
+	trigger1L( "mu20_iloose_L1MU15", "mu20_iloose_L1MU15" );
+	trigger1L( "mu20_iloose_L1MU15_OR_mu40", "mu20_iloose_L1MU15_OR_mu40" );
+	trigger1L( "mu20_iloose_L1MU15_OR_mu50", "mu20_iloose_L1MU15_OR_mu50" );
+	trigger1L( "mu24_iloose_L1MU15", "mu24_iloose_L1MU15");
+	trigger1L( "mu24_iloose_L1MU15_OR_mu40", "mu24_iloose_L1MU15_OR_mu40");
+	trigger1L( "mu24_iloose_L1MU15_OR_mu50", "mu24_iloose_L1MU15_OR_mu50");	
+	trigger1L( "mu24_iloose_L1MU15_OR_mu24_iloose", "mu24_iloose_L1MU15_OR_mu24_iloose");
+	trigger1L( "mu24_iloose_L1MU15_OR_mu24_iloose_OR_mu40", "mu24_iloose_L1MU15_OR_mu24_iloose_OR_mu40");
+	trigger1L( "mu24_iloose_L1MU15_OR_mu24_iloose_OR_mu50", "mu24_iloose_L1MU15_OR_mu24_iloose_OR_mu50");
+	trigger1L( "mu24_imedium", "mu24_imedium");
+	trigger1L( "mu24_imedium_OR_mu40", "mu24_imedium_OR_mu40");
+	trigger1L( "mu24_imedium_OR_mu50", "mu24_imedium_OR_mu50");
+	trigger1L( "mu24_ivarmedium", "mu24_ivarmedium");
+	trigger1L( "mu24_ivarmedium_OR_mu40", "mu24_ivarmedium_OR_mu40");
+	trigger1L( "mu24_ivarmedium_OR_mu50", "mu24_ivarmedium_OR_mu50");
+	trigger1L( "mu26_imedium", "mu26_imedium");
+	trigger1L( "mu26_imedium_OR_mu40", "mu26_imedium_OR_mu40");
+	trigger1L( "mu26_imedium_OR_mu50", "mu26_imedium_OR_mu50");
+	trigger1L( "mu26_ivarmedium", "mu26_ivarmedium");
+	trigger1L( "mu26_ivarmedium_OR_mu40", "mu26_ivarmedium_OR_mu40");
+	trigger1L( "mu26_ivarmedium_OR_mu50", "mu26_ivarmedium_OR_mu50");
+	trigger1L( "mu40", "mu40");
+	trigger1L( "mu50", "mu50");
+	
+	// Dimuon triggers
+	trigger2L( "2mu10", "mu10", "mu10" );
+	trigger2L( "2mu14", "mu14", "mu14" );
+	trigger2L( "mu18_mu8noL1", "mu18", "mu8noL1");
+	trigger2L( "mu20_mu8noL1", "mu20", "mu8noL1");
+	trigger2L( "mu22_mu8noL1", "mu22", "mu8noL1");
+	
+	// Trimuon triggers
+	trigger3L( "3mu4", "mu4", "mu4", "mu4" );
+	trigger3L( "3mu6", "mu6", "mu6", "mu6" );
+	trigger3L( "mu6_2mu4", "mu6", "mu4", "mu4" );
+	// trigger3L( "mu18_2mu4noL1", "mu18", "mu4noL1", "mu4noL1" ); // check availability of SF for mu4noL1
+	// trigger3L( "mu20_2mu4noL1", "mu20", "mu4noL1", "mu4noL1" ); // check availability of SF for mu4noL1
+	
+	// Single electron triggers
+	trigger1L( "e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose", "e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose" );
+	trigger1L( "e24_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0", "e24_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0" );
+	trigger1L( "e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0", "e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0" );
+	
+	// Dielectron triggers
+	trigger2L( "2e12_lhloose_L12EM10VH", "e12_lhloose_L1EM10VH", "e12_lhloose_L1EM10VH");
+	trigger2L( "2e15_lhvloose_nod0_L12EM13VH", "e15_lhvloose_nod0_L1EM13VH", "e15_lhvloose_nod0_L1EM13VH");
+	trigger2L( "2e17_lhvloose_nod0", "e17_lhvloose_nod0", "e17_lhvloose_nod0");
+	
+	// Trielectron triggers
+	trigger3L( "e17_lhloose_2e9_lhloose", "e17_lhloose", "e9_lhloose", "e9_lhloose" );
+	trigger3L( "e17_lhloose_nod0_2e9_lhloose_nod0", "e17_lhloose_nod0", "e9_lhloose_nod0", "e9_lhloose_nod0" );
+	trigger3L( "e17_lhloose_nod0_2e10_lhloose_nod0_L1EM15VH_3EM8VH", "e17_lhloose_nod0_L1EM15VH", "e10_lhloose_nod0_L1EM8VH", "e10_lhloose_nod0_L1EM8VH" );
+	
+	// Electron-muon triggers
+	trigger2L( "e17_lhloose_nod0_mu14", "e17_lhloose_nod0", "mu14" );
+	trigger2L( "e7_lhmedium_nod0_mu24", "e7_lhmedium_nod0", "mu24" );
+	trigger2L( "e17_lhloose_mu14", "e17_lhloose", "mu14" );
+	trigger2L( "e7_lhmedium_mu24", "e7_lhmedium", "mu24" );
+	trigger2L( "e24_lhmedium_L1EM20VHI_mu8noL1", "e24_lhmedium_L1EM20VHI", "mu8noL1" );
+	trigger2L( "e24_lhmedium_nod0_L1EM20VHI_mu8noL1", "e24_lhmedium_nod0_L1EM20VHI", "mu8noL1" );
+	trigger2L( "e26_lhmedium_nod0_L1EM22VHI_mu8noL1", "e26_lhmedium_nod0_L1EM22VHI", "mu8noL1" );
+	trigger3L( "e12_lhloose_2mu10", "e12_lhloose", "mu10", "mu10" );
+	trigger3L( "e12_lhloose_nod0_2mu10", "e12_lhloose_nod0", "mu10", "mu10" );
+	trigger3L( "2e12_lhloose_mu10", "e12_lhloose", "e12_lhloose", "mu10" );
+	trigger3L( "2e12_lhloose_nod0_mu10", "e12_lhloose_nod0", "e12_lhloose_nod0", "mu10" );
+}
+
+
+void TrigGlobalEfficiencyCorrectionTool::declareThresholds()
+{
+	auto threshold = [&](const std::string& leg, float minPt) { m_declaredThresholds.emplace(m_hasher(leg),minPt); };
+	
+	/// Add new declarations below:
+	
+	threshold ( "mu50", 1.05f * 50000.f );
+	threshold ( "mu40", 1.05f * 40000.f );
+	std::vector<std::string> names_mu26 = {"mu26_imedium", "mu26_ivarmedium"};
+	for(auto name : names_mu26)
+	{
+		threshold ( name, 1.05f * 26000.f );
+		threshold ( name+"_OR_mu40", 1.05f * 26000.f );
+		threshold ( name+"_OR_mu50", 1.05f * 26000.f );
+	}
+	std::vector<std::string> names_mu24 = {"mu24_iloose_L1MU15", "mu24_iloose_L1MU15_OR_mu24_iloose", "mu24_imedium", "mu24_ivarmedium"};
+	for(auto name : names_mu24)
+	{
+		threshold ( name, 1.05f * 24000.f );
+		threshold ( name+"_OR_mu40", 1.05f * 24000.f );
+		threshold ( name+"_OR_mu50", 1.05f * 24000.f );
+	}
+	threshold ( "mu26", 27000.f );
+	threshold ( "mu24", 25000.f );
+	threshold ( "mu22", 23000.f );
+	threshold ( "mu20_iloose_L1MU15_OR_mu50", 1.05f * 20000.f);
+	threshold ( "mu20_iloose_L1MU15_OR_mu40", 1.05f * 20000.f);
+	threshold ( "mu20_iloose_L1MU15", 1.05f * 20000.f);
+	threshold ( "mu20", 21000.f );
+	threshold ( "mu18", 19000.f );
+	threshold ( "mu14", 15000.f );
+	threshold ( "mu10", 11000.f );
+	threshold ( "mu8noL1", 10000.f );
+	threshold ( "mu6", 7000.f );
+	threshold ( "mu4", 5000.f );
+	
+	
+	threshold ( "e140_lhloose_nod0", 141000.f );
+	threshold ( "e120_lhloose", 121000.f );
+	threshold ( "e60_lhmedium", 61000.f );
+	threshold ( "e60_lhmedium_nod0", 61000.f );
+	threshold ( "e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0", 27000.f );
+	threshold ( "e26_lhmedium_nod0_L1EM22VHI", 27000.f );
+	threshold ( "e24_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0", 25000.f );
+	threshold ( "e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose", 25000.f );
+	threshold ( "e24_lhmedium_L1EM20VH", 25000.f );
+	threshold ( "e24_lhmedium_L1EM20VHI", 25000.f );
+	threshold ( "e24_lhmedium_nod0_L1EM20VHI", 25000.f );
+	threshold ( "e17_lhloose", 18000.f );
+	threshold ( "e17_lhloose_nod0", 18000.f );
+	threshold ( "e17_lhvloose_nod0", 18000.f );
+	threshold ( "e17_lhloose_nod0_L1EM15VH", 18000.f );
+	threshold ( "e15_lhvloose_nod0_L1EM13VH", 16000.f );	
+	threshold ( "e12_lhloose", 13000.f );	
+	threshold ( "e12_lhloose_nod0", 13000.f );	
+	threshold ( "e12_lhloose_L1EM10VH", 13000.f );	
+	threshold ( "e10_lhloose_nod0_L1EM8VH", 11000.f );	
+	threshold ( "e9_lhloose", 10000.f );	
+	threshold ( "e9_lhloose_nod0", 10000.f );	
+	threshold ( "e7_lhmedium_nod0", 8000.f );	
+	threshold ( "e7_lhmedium", 8000.f );
+}
+
+
+void TrigGlobalEfficiencyCorrectionTool::declarePeriods()
+{
+	auto period = [&](const char*name, unsigned runMin, unsigned runMax) { m_declaredPeriods.emplace(name, std::make_pair(runMin, runMax)); };
+	
+	/// Add new declarations below:
+	
+	period ( "all", 0, 999999 );
+	period ( "2015", 266904, 284484 );
+	period ( "2015:A", 266904, 267639 );
+	period ( "2015:B", 267358, 267599 );
+	period ( "2015:C", 270441, 272531 );
+	period ( "2015:D", 276073, 276954 );
+	period ( "2015:E", 278727, 279928 );
+	period ( "2015:F", 279932, 280422 );
+	period ( "2015:G", 280423, 281075 );
+	period ( "2015:H", 281130, 281411 );
+	period ( "2015:I", 281662, 282482 );
+	period ( "2015:J", 282625, 284484 );
+	period ( "2016", 296939, 311481 );
+	period ( "2016:A", 296939, 300287 );
+	period ( "2016:B", 300345, 300908 );
+	period ( "2016:C", 301912, 302393 );
+	period ( "2016:D", 302737, 303560 );
+	period ( "2016:E", 303638, 303892 );
+	period ( "2016:F", 303943, 304494 );
+	period ( "2016:G", 305291, 306714 );
+	period ( "2016:I", 307124, 308084 );
+	period ( "2016:K", 309311, 309759 );
+	period ( "2016:L", 310015, 311481 );
+}
+
+#endif //> !TOOLPROTOTYPES_TRIGGLOBALEFFICIENCYCORRECTION_DECLARATIONS_ICC

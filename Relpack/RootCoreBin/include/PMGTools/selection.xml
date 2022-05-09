@@ -1,0 +1,9 @@
+<!-- $Id: selection.xml 762199 2016-07-15 13:47:19Z aknue $ -->
+<lcgdict>
+
+  <class name="PMGSherpa22VJetsWeightTool" />
+  <class name="PMGCrossSectionTool" />
+  <class name="PMGTools::PMGSherpaVjetsSysTool" />
+  <class name="PMGTools::IPMGSherpaVjetsSysTool" />
+
+</lcgdict>

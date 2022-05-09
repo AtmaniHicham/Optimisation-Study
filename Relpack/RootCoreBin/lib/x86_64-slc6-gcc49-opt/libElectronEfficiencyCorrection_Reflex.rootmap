@@ -1,0 +1,11 @@
+{ decls }
+namespace CP {  }
+
+[ libElectronEfficiencyCorrection_Reflex.so ]
+# List of selected classes
+class AsgElectronEfficiencyCorrectionTool
+class CP::ElectronChargeEfficiencyCorrectionTool
+class IAsgElectronEfficiencyCorrectionTool
+header ElectronEfficiencyCorrection/AsgElectronEfficiencyCorrectionTool.h
+header ElectronEfficiencyCorrection/ElectronChargeEfficiencyCorrectionTool.h
+header ElectronEfficiencyCorrection/IAsgElectronEfficiencyCorrectionTool.h

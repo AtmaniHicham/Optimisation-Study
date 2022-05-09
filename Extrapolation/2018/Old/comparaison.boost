@@ -1,0 +1,103 @@
+nBins = 33
+inputType=0
+latex = __ATLAS Internal
+latexOpt = 0.13 0.9
+
+
+   rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat_low-mu/Alpha_2018-24.root
+   objName= measScale_alpha
+   legend= Alpha 2018 - low pileup
+
+   rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-pol1.root
+   objName= ExtraCorr
+   legend= Alpha 2018 - high pileup extrapolate to __HASHTAGmu ~ 0
+
+   rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat/Alpha_2018-24.root
+   objName=measScale_alpha
+   legend=Alpha 2018 - high pileup
+
+
+#  rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat_low-mu/Alpha_2018-24.root
+#  objName= measScale_alpha
+#  legend= Alpha 2018 - Low mu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 1 + 3 intervals of "mu" - Extrapolation results
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-pol2.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 2 + 3 intervals of "mu" - Extrapolation results
+
+
+
+#  rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat_low-mu/Alpha_2018-24.root
+#  objName= measScale_alpha
+#  legend= Alpha 2018 - Low mu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-2Intervals-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 1 + 2 intervals of "mu" - Extrapolation results
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-2Intervals-pol2.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 2 + 2 intervals of "mu" - Extrapolation results
+
+
+
+#  rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat_low-mu/Alpha_2018-24.root
+#  objName= measScale_alpha
+#  legend= Alpha 2018 - Low mu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-addionalpoint-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 1 + Addional point - Extrapolation results
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-addionalpoint-pol2.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 2 + Addional point - Extrapolation results
+
+
+
+
+#  rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat_low-mu/Alpha_2018-24.root
+#  objName= measScale_alpha
+#  legend= Alpha 2018 - Low mu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 1 + 3 intervals of "mu" - Extrapolation results
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-pol2.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 2 + 3 intervals of "mu" - Extrapolation results
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-2Intervals-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 1 + 2 intervals of "mu" - Extrapolation results
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-addionalpoint-pol2.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 2 + Addional point - Extrapolation results
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2018/output-24-addionalpoint-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2018 - Polynom 1 + Addional point - Extrapolation results
+
+
+
+
+
+
+
+
+
+
+doRatio=2
+xTitle=__HASHTAGeta
+#yTitle = __HASHTAG Chi2 / ndf
+yTitle = __HASHTAGalpha
+xTitleOffset= 0.4
+extension=pdf
+legendPos= 0.31 0.861
+extendUp=0.35

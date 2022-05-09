@@ -1,0 +1,10 @@
+[ libReweightUtils_Reflex.so ]
+# List of selected classes
+class McEventWeight
+class PDFWeight
+class ParticleScaleFactorTool
+class WeightsAgregator
+header ReweightUtils/McEventWeight.h
+header ReweightUtils/PDFWeight.h
+header ReweightUtils/ParticleScaleFactorTool.h
+header ReweightUtils/WeightsAgregator.h

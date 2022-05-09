@@ -1,0 +1,34 @@
+inputType=0
+latex = __ATLAS Internal
+latexOpt = 0.13 0.9
+latex = __HASHTAGsqrt{s} = 13 TeV, L (2017 Standard runs)  = 43.9 fb^{-1}
+latexOpt = 0.15 0.85
+latex = L (2017 low pileup runs) = 146.6 pb^{-1}
+latexOpt = 0.28 0.80
+
+
+   rootFileName=/sps/atlas/h/hatmani/Extrapolation/Comparison/SourceOfError2017Stat.root
+   objName=Extra
+   legend= Extrapolation statistical error
+
+   rootFileName=/sps/atlas/h/hatmani/Systh_2/PreRec_24/Results/resum/EnergyScaleFactorsAout.root
+   objName=totSyst_alpha
+   legend= high pile-up systematic error
+
+   rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/extrapolationsys.root
+   objName=Hx3Mx1
+   legend= Extrapolation systematic  error
+
+   rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/Syst_Final/Total.root
+   objName=Total
+   legend=Total uncertainties
+
+
+
+doRatio=0
+xTitle=__HASHTAGeta
+yTitle = uncertainties
+yTitleOffset= 1.4
+extension=root
+legendPos= 0.38 0.71
+extendUp=0.8

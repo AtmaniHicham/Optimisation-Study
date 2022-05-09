@@ -1,0 +1,33 @@
+inputType=0
+latex = __ATLAS Internal
+latexOpt = 0.13 0.9
+latex = __HASHTAGsqrt{s} = 13 TeV, L (2018 Standard runs)  = 59.9 fb^{-1}
+latexOpt = 0.15 0.85
+latex = L (2018 low pileup runs) = 193.2 pb^{-1}
+latexOpt = 0.28 0.80
+
+
+  rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat_low-mu/Alpha_2018-24.root
+  objName=measScale_alpha
+  legend= Low pileup 2018
+
+  rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat_low-mu/Alpha_2017-24.root
+  objName=measScale_alpha
+  legend= Low pileup 2017
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Comparison/SourceOfError2018Stat.root
+#  objName=measScale_alpha
+#  legend= Low pileup runs
+  
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Comparison/SourceOfError2018Stat.root
+#  objName=ExtraCorr
+#  legend= High pileup runs extrapolated to __HASHTAGmu ~ 0
+
+
+doRatio=0
+xTitle=__HASHTAGeta
+yTitle = Statistical uncertainties
+yTitleOffset= 1.4
+extension=pdf
+legendPos= 0.28 0.71
+extendUp=0.8

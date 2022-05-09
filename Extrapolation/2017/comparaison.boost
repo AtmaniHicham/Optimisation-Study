@@ -1,0 +1,111 @@
+inputType=0
+latex = __ATLAS Internal
+latexOpt = 0.16 0.9
+latex = High mu (<__HASHTAGmu> ~ 37, 44.3 fb^{-1})
+latexOpt = 0.18 0.86
+latex = Low mu (<__HASHTAGmu> ~ 2, 147 pb^{-1})
+latexOpt = 0.18 0.82
+
+  rootFileName=/sps/atlas/h/hatmani/rel21_Calibe/resultat_low-mu/Alpha_2017-24.root
+  objName= measScale_alpha
+  legend=  low pile-up
+
+  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-5Intervals-pol1.root
+  objName= Extra
+  legend=  high pile-up extrapolated to __HASHTAGmu ~ 2
+
+  rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat/Alpha_2017-MC16d-24Bins.root
+  objName=measScale_alpha
+  legend= high pile-up
+
+
+#  rootFileName=/sps/atlas/h/hatmani/rel21_Calib_Pre/resultat/Alpha_2017-MC16d-24Bins.root 
+#  objName=measScale_alpha
+#  legend= Alpha 2017 - high pileup
+
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-5Intervals.root
+#  objName= Extra
+#  legend=X1 - before correction
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-5Intervals-pol2.root
+#  objName= Extra
+#  legend=X2
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-5Intervals-IntervaAddi-pol1.root
+#  objName= Extra
+#  legend=X4
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-5Intervals-IntervaAddi-pol2.root
+#  objName= Extra
+#  legend=X5
+
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-2Intervals-IntervaAddi.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 + low information - 2 intervals of __HASHTAGmu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-3Intervals-IntervaAddi.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 + low information - 3 intervals of __HASHTAGmu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-4Intervals-IntervaAddi.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 + low information - 4 intervals of __HASHTAGmu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-5Intervals-IntervaAddi.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 + low information - 5 intervals of __HASHTAGmu
+
+
+#  rootFileName=/sps/atlas/h/hatmani/rel21_Calibe/resultat_low-mu/Alpha_2017-24.root
+#  objName= measScale_alpha
+#  legend= Alpha 2017 - low pileup
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-2Intervals-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 - 2 intervals of __HASHTAGmu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-3Intervals-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 - 3 intervals of __HASHTAGmu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-4Intervals-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 - 4 intervals of __HASHTAGmu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-5Intervals-pol1.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 - 5 intervals of __HASHTAGmu
+
+
+
+
+#  rootFileName=/sps/atlas/h/hatmani/rel21_Calibe/resultat_low-mu/Alpha_2017-24.root
+#  objName= measScale_alpha
+#  legend= Alpha 2017 - low pileup
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-3Intervals-pol2.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 - 3 intervals of __HASHTAGmu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-4Intervals-pol2.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 - 4 intervals of __HASHTAGmu
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/2017/output-24-5Intervals-pol2.root
+#  objName= ExtraCorr
+#  legend= Alpha 2017 - high pileup extrapolate to 0 - 5 intervals of __HASHTAGmu
+
+
+
+
+
+doRatio=2
+xTitle=__HASHTAGeta
+#yTitle = __HASHTAG Chi2 / ndf
+yTitle = __HASHTAGalpha_{i}
+xTitleOffset= 0.4
+extension=root
+legendPos= 0.4 0.7
+extendUp=0.35

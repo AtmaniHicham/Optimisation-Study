@@ -1,0 +1,23 @@
+inputType=0
+latex = __ATLAS Internal
+latexOpt = 0.13 0.9
+latex = __HASHTAGsqrt{s} = 13 TeV, L(2018 low pileup runs) = 193.2 pb^{-1}
+latexOpt = 0.15 0.85
+
+
+  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Comparison/SourceOfError2018Stat.root
+  objName=ExtraCorr
+  legend= Statistical uncertainties
+
+  rootFileName=/sps/atlas/h/hatmani/Systh_2/PreRec_24/Results/resum/EnergyScaleFactorsAout.root
+  objName=totSyst_alpha
+  legend= Systematic uncertainties
+
+
+doRatio=0
+xTitle=__HASHTAGeta
+yTitle =  uncertainties
+yTitleOffset= 1.4
+extension=pdf
+legendPos= 0.28 0.71
+extendUp=0.8

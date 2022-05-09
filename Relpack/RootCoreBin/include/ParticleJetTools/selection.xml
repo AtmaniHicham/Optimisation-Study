@@ -1,0 +1,8 @@
+<lcgdict>
+    <class name="CopyTruthParticles" />  
+    <class name="CopyBosonTopLabelTruthParticles" />  
+    <class name="CopyTruthPartons" />  
+    <class name="CopyFlavorLabelTruthParticles" />  
+    <class name="CopyTruthJetParticles" />  
+    <class name="ParticleJetDeltaRLabelTool" />  
+</lcgdict>

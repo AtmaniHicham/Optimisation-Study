@@ -1,0 +1,76 @@
+inputType=0
+latex = __ATLAS Internal
+latexOpt = 0.13 0.9
+latex = __HASHTAGsqrt{s} = 13 TeV, L (2017 Standard runs)  = 43.9 fb^{-1}
+latexOpt = 0.15 0.85
+latex = L (2017 low pileup runs) = 146.6 pb^{-1}
+latexOpt = 0.28 0.80
+
+
+   rootFileName=/sps/atlas/h/hatmani/Extrapolation/Comparison/SourceOfError2017Stat.root
+   objName=Extra
+   legend= Extrapolation statistical error
+
+   rootFileName=/sps/atlas/h/hatmani/Plot-note/Rel20.7/EnergyScaleFactors_180109_Tot.root
+   objName=totSyst_alpha
+   legend= high pile-up runs systematic error
+
+   rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/extrapolationsys.root
+   objName=Hx3Mx1
+   legend= Extrapolation systematic  error
+
+
+
+#   rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#   objName= HistX4
+#   legend= X4
+
+#   rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#   objName= HistX7
+#   legend= X7
+
+
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#  objName= Histsigma7
+#  legend= Low-mu Stat Error
+  
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#  objName= Hx7Mx1
+#  legend= X7 - X1
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#  objName= Hx2Mx1
+#  legend= X2 - X1
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#  objName= Hx3Mx1
+#  legend= X3 - X1
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#  objName= Hx5Mx4
+#  legend= X5 - X4
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#  objName= Hx6Mx4
+#  legend= X6 - X4
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#  objName= Hx4Mx1
+#  legend= X4 - X1
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#  objName= HistX4
+#  legend= extrapolation using low mu information
+
+#  rootFileName=/sps/atlas/h/hatmani/Extrapolation/Extrapolation/Syst/OutputPlot.root
+#  objName= HistX8
+#  legend= low mu + extraplation (X8)
+
+doRatio=0
+xTitle=__HASHTAGeta
+yTitle = uncertainties
+yTitleOffset= 1.4
+extension=pdf
+legendPos= 0.38 0.71
+extendUp=0.8

@@ -1,0 +1,4 @@
+[ libPathResolver_Reflex.so ]
+# List of selected classes
+class PathResolver
+header PathResolver/PathResolver.h

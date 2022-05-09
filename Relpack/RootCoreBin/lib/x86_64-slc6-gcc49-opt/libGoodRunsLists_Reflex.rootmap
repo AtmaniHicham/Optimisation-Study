@@ -1,0 +1,4 @@
+[ libGoodRunsLists_Reflex.so ]
+# List of selected classes
+class GoodRunsListSelectionTool
+header GoodRunsLists/GoodRunsListSelectionTool.h

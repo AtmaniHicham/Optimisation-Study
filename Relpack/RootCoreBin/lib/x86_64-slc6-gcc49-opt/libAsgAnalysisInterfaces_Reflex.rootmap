@@ -1,0 +1,15 @@
+{ decls }
+namespace CP {  }
+
+[ libAsgAnalysisInterfaces_Reflex.so ]
+# List of selected classes
+class CP::IEfficiencyScaleFactorTool
+class CP::IPileupReweightingTool
+class IGoodRunsListSelectionTool
+class IObservableTool
+header AsgAnalysisInterfaces/IEfficiencyScaleFactorTool.h
+header AsgAnalysisInterfaces/IPileupReweightingTool.h
+header AsgAnalysisInterfaces/IGoodRunsListSelectionTool.h
+header AsgAnalysisInterfaces/IObservableTool.h
+# List of selected namespaces
+namespace CP
